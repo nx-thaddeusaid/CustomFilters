@@ -164,36 +164,11 @@ internal class FilterQueries
     }
 
     private static void JoinAndAddIfNotEmpty(List<string> outer, string separator, List<string> inner)
-    {
-        if (inner.Count > 0)
-        {
-            outer.Add("(" + string.Join(separator, inner) + ")");
-        }
-    }
+        => SqlQueryBuilder.JoinAndAddIfNotEmpty(outer, separator, inner);
 
-    private static string ExistsLike(string term)
-    {
-        return @$"EXISTS ( SELECT * FROM TagSetTag t WHERE d.TagSetID = t.TagSetID AND t.TagName LIKE {QuoteLike(term)} ESCAPE '\' )";
-    }
-
-    private static string QuoteLike(string text)
-    {
-        return Quote('%' + text.Replace(@"%", @"\%").Replace(@"_", @"\_") + '%');
-    }
-
-    private static string ExistsIn(params string[] tags)
-    {
-        var quotedTags = string.Join(",", tags.Select(Quote));
-        return @$"EXISTS ( SELECT * FROM TagSetTag t WHERE d.TagSetID = t.TagSetID AND t.TagName IN ({quotedTags}) )";
-    }
-
-    private static string NotExistsIn(params string[] tags)
-    {
-        return "NOT " + ExistsIn(tags);
-    }
-
-    private static string Quote(string text)
-    {
-        return "'" + text.Replace(@"'", @"''") + "'";
-    }
+    private static string ExistsLike(string term) => SqlQueryBuilder.ExistsLike(term);
+    private static string QuoteLike(string text) => SqlQueryBuilder.QuoteLike(text);
+    private static string ExistsIn(params string[] tags) => SqlQueryBuilder.ExistsIn(tags);
+    private static string NotExistsIn(params string[] tags) => SqlQueryBuilder.NotExistsIn(tags);
+    private static string Quote(string text) => SqlQueryBuilder.Quote(text);
 }

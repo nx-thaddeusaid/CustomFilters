@@ -2,6 +2,26 @@
 name: CI
 
 jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate JSON files
+        run: python .github/scripts/validate_json.py
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8
+      - name: Run unit tests
+        run: dotnet test source/CustomFilters.Tests/CustomFilters.Tests.csproj --verbosity normal
+
   build:
     uses: BattletechModders/ModTek/.github/workflows/mod-builder.yml@master
     with:
