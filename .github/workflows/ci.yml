@@ -11,6 +11,18 @@ jobs:
         run: |
           python3 .github/scripts/validate_json.py
 
+  lint:
+    name: C# formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+      - name: dotnet format
+        run: dotnet format --verify-no-changes
+        working-directory: source
+
   build:
     uses: BattletechModders/ModTek/.github/workflows/mod-builder.yml@master
     with:
