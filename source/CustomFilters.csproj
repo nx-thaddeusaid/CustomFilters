@@ -107,6 +107,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="CustomFilters.Tests\**\*.cs" />
+    <Compile Remove="CustomFilters.Benchmarks\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\*.json" />
     <None Include="..\advancedjsonmerge\loglevels.json" />
     <None Include="$(BattleTechGameDir)\Mods\.modtek\battletech_log.txt" />
