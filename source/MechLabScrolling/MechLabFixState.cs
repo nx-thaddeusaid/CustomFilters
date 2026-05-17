@@ -130,7 +130,7 @@ internal class MechLabFixState
 
     private void Sort(List<ListElementController_BASE_NotListView> items)
     {
-        Log.Main.Trace?.Log($"Sorting: {string.Join(",",items.Select(item => GetRef(item).ComponentDefID))}");
+        Log.Main.Trace?.Log($"Sorting: {string.Join(",", items.Select(item => GetRef(item).ComponentDefID))}");
 
         var sw = Stopwatch.StartNew();
         var cs = _widget.currentSort;
@@ -158,7 +158,7 @@ internal class MechLabFixState
         });
 
         Log.Main.Debug?.Log($"Sorted in {sw.ElapsedMilliseconds} ms");
-        Log.Main.Trace?.Log($"Sorting: {string.Join(",",items.Select(item => GetRef(item).ComponentDefID))}");
+        Log.Main.Trace?.Log($"Sorting: {string.Join(",", items.Select(item => GetRef(item).ComponentDefID))}");
     }
 
     private MechComponentRef GetRef(ListElementController_BASE_NotListView lec)

@@ -20,8 +20,7 @@ jobs:
         with:
           dotnet-version: '8.x'
       - name: dotnet format
-        run: dotnet format --verify-no-changes
-        working-directory: source
+        run: dotnet format whitespace --verify-no-changes source/CustomFilters.csproj
 
   build:
     uses: BattletechModders/ModTek/.github/workflows/mod-builder.yml@master

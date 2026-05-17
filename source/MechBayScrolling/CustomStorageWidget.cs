@@ -243,7 +243,7 @@ internal class CustomStorageWidget
 
     internal void FilterAndSort(bool reset)
     {
-        _sortedAndFilteredInventory =_inventory
+        _sortedAndFilteredInventory = _inventory
             .Where(item =>
             {
                 if (_widget.useStockFilter && !_widget.filterEnabledStock && item.MechDef != null && !item.MechDef.MechTags.Contains(MechValidationRules.MechTag_Custom))
@@ -275,7 +275,7 @@ internal class CustomStorageWidget
         } // TODO how to handle small modifications such as add/remove? see HBSInventoryLoopingListView or HBSLoopScrollRect
 
         var rowCount = Mathf.CeilToInt(_sortedAndFilteredInventory.Count / (float)_rowCellCount);
-        _rowCountBelowScreen = Mathf.Max(0,rowCount - _screenRowCount);
+        _rowCountBelowScreen = Mathf.Max(0, rowCount - _screenRowCount);
         _rowIndexMaxForLoadingData = Mathf.Max(0, _rowCountBelowScreen - RowCountToPreloadAsBuffer);
         _rowIndexForLoadingData = Mathf.Clamp(_rowIndexForLoadingData, 0, _rowIndexMaxForLoadingData);
 
@@ -337,7 +337,7 @@ internal class CustomStorageWidget
             }
         }
 
-        for (var index=0; index<slicedList.Count; index++)
+        for (var index = 0; index < slicedList.Count; index++)
         {
             var fakeItem = slicedList[index];
             if (slicedIndexMappedToInventoryItem.TryGetValue(index, out var inventoryItem))
@@ -497,7 +497,7 @@ internal class CustomStorageWidget
     {
         if (_widget.allowRemovingItems)
         {
-            for (var index=0; index<_widget.inventory.Count; index++)
+            for (var index = 0; index < _widget.inventory.Count; index++)
             {
                 var inventoryItem = _widget.inventory[index];
                 if (GetId(inventoryItem) == GetId(item))
@@ -513,7 +513,8 @@ internal class CustomStorageWidget
         if (item is LanceLoadoutMechItem mechItem
             && _widget.ParentDropTarget is LanceConfiguratorPanel panel
             && (!panel.allowDuplicateMechs || _testDuplicationInSkirmish)
-        ) {
+        )
+        {
             SetAvailable(new(mechItem.mechDef), false);
         }
         return false;

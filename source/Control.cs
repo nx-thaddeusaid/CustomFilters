@@ -58,7 +58,7 @@ internal static class Control
         }
     }
 
-    private static T LoadSettings<T>(string configPath, T? defaultSettings = null, bool saveLast = false) where T: class
+    private static T LoadSettings<T>(string configPath, T? defaultSettings = null, bool saveLast = false) where T : class
     {
         if (defaultSettings != null)
         {

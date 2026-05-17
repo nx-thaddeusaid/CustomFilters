@@ -86,7 +86,7 @@ internal class UIHandler
         go = _widget.filterBtnAll;
 
         var grid = go.transform.parent.gameObject.GetComponent<GridLayoutGroup>();
-        grid.spacing = new(8,8);
+        grid.spacing = new(8, 8);
 
         ShowChildren(go, "");
 
