@@ -12,6 +12,33 @@ jobs:
       - name: Validate JSON files
         run: python .github/scripts/validate_json.py
 
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8
+      - name: Check whitespace formatting
+        run: |
+          dotnet format whitespace --verify-no-changes source/CustomFilters.csproj
+          dotnet format whitespace --verify-no-changes source/CustomFilters.Tests/CustomFilters.Tests.csproj
+
+  nuget-vuln:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8
+      - name: Restore test project packages
+        run: dotnet restore source/CustomFilters.Tests/CustomFilters.Tests.csproj
+      - name: NuGet vulnerability scan
+        run: |
+          dotnet list source/CustomFilters.Tests/CustomFilters.Tests.csproj package --vulnerable --include-transitive \
+            2>&1 | tee /tmp/vuln.txt
+          ! grep -q "has the following vulnerable" /tmp/vuln.txt
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -19,8 +46,17 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8
-      - name: Run unit tests
-        run: dotnet test source/CustomFilters.Tests/CustomFilters.Tests.csproj --verbosity normal
+      - name: Run unit tests with coverage
+        run: |
+          dotnet test source/CustomFilters.Tests/CustomFilters.Tests.csproj --verbosity normal \
+            --collect:"XPlat Code Coverage" \
+            --results-directory coverage/
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/**/coverage.cobertura.xml
+          if-no-files-found: warn
 
   build:
     uses: BattletechModders/ModTek/.github/workflows/mod-builder.yml@master

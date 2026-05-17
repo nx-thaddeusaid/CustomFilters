@@ -1,0 +1,21 @@
+#!/bin/sh
+set -e
+
+# Check formatting on staged changes
+if git diff --cached --name-only | grep -q "source/"; then
+    echo "Checking whitespace: CustomFilters"
+    dotnet format whitespace --verify-no-changes source/CustomFilters.csproj
+    dotnet format whitespace --verify-no-changes source/CustomFilters.Tests/CustomFilters.Tests.csproj
+fi
+
+# Validate staged JSON files
+if git diff --cached --name-only | grep -q "\.json$"; then
+    echo "Validating JSON..."
+    python .github/scripts/validate_json.py
+fi
+
+# Run unit tests if any source files staged
+if git diff --cached --name-only | grep -qE "\.(cs|csproj)$"; then
+    echo "Running unit tests..."
+    dotnet test source/CustomFilters.Tests/CustomFilters.Tests.csproj --verbosity quiet
+fi

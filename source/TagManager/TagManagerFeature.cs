@@ -53,7 +53,7 @@ internal class TagManagerFeature
         panel.allPilotDefs = new();
         foreach (var id in queries.PilotIds())
         {
-            loadRequest.AddLoadRequest(BattleTechResourceType.PilotDef, id, delegate(string _, PilotDef? def)
+            loadRequest.AddLoadRequest(BattleTechResourceType.PilotDef, id, delegate (string _, PilotDef? def)
             {
                 if (MechValidationRules.PilotIsValidForSkirmish(def))
                 {
@@ -71,7 +71,7 @@ internal class TagManagerFeature
         panel.stockMechs = new();
         foreach (var id in queries.MechIds())
         {
-            loadRequest.AddLoadRequest(BattleTechResourceType.MechDef, id, delegate(string _, MechDef? def)
+            loadRequest.AddLoadRequest(BattleTechResourceType.MechDef, id, delegate (string _, MechDef? def)
             {
                 try
                 {
@@ -97,7 +97,7 @@ internal class TagManagerFeature
         panel.stockLances = new();
         foreach (var id in queries.LanceIds())
         {
-            loadRequest.AddLoadRequest(BattleTechResourceType.LanceDef, id, delegate(string _, LanceDef? def)
+            loadRequest.AddLoadRequest(BattleTechResourceType.LanceDef, id, delegate (string _, LanceDef? def)
             {
                 if (MechValidationRules.LanceIsValidForSkirmish(def, false, false))
                 {
