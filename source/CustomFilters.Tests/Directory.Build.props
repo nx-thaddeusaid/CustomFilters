@@ -1,0 +1,5 @@
+<Project>
+  <!-- Empty: prevents the workspace-level Directory.Build.props (FrameworkPathOverride
+       for Mono 4.7.2-api) from propagating into this net8.0 project and replacing the
+       .NET Core BCL. Same fix Merlin II applied to ModTek.Tests/Directory.Build.props. -->
+</Project>
